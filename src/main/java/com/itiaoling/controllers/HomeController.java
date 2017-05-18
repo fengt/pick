@@ -1,4 +1,4 @@
-package com.xiaojiuwo.controllers;
+package com.itiaoling.controllers;
 
 
 import org.springframework.stereotype.Controller;

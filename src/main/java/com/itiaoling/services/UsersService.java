@@ -1,7 +1,8 @@
-package com.xiaojiuwo.services;
+package com.itiaoling.services;
 
-import com.xiaojiuwo.models.User;
 import org.springframework.stereotype.Service;
+
+import com.itiaoling.models.User;
 
 import javax.transaction.Transactional;
 import java.util.List;

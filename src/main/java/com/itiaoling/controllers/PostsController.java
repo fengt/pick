@@ -1,8 +1,9 @@
-package com.xiaojiuwo.controllers;
+package com.itiaoling.controllers;
 
 
-import com.xiaojiuwo.models.User;
-import com.xiaojiuwo.services.UsersService;
+import com.itiaoling.models.User;
+import com.itiaoling.services.UsersService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

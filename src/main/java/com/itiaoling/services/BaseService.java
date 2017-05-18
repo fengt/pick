@@ -1,9 +1,10 @@
-package com.xiaojiuwo.services;
+package com.itiaoling.services;
 
 
-import com.xiaojiuwo.repositories.MyBatisGeneralRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.itiaoling.repositories.MyBatisGeneralRepository;
 
 import javax.annotation.Resource;
 

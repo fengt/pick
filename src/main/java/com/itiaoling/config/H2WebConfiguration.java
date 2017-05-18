@@ -1,4 +1,4 @@
-package com.xiaojiuwo.config;
+package com.itiaoling.config;
 
 import org.h2.server.web.WebServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

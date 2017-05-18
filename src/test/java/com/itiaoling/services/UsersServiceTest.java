@@ -1,4 +1,4 @@
-package com.xiaojiuwo.services;
+package com.itiaoling.services;
 
 import javax.transaction.Transactional;
 
@@ -9,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.xiaojiuwo.Application;
+import com.itiaoling.Application;
+import com.itiaoling.services.UsersService;
 
 /**
  * Created by liuhaibao on 15/11/2.
