@@ -12,7 +12,8 @@
     </settings>
     <typeAliases>
 
-        <typeAlias type="com.xiaojiuwo.models.User" alias="User"/>
+        <typeAlias type="com.itiaoling.models.User" alias="User"/>
+        <typeAlias type="com.itiaoling.models.Post" alias="Post"/>
     </typeAliases>
 
 

@@ -15,3 +15,4 @@
 classes/
 logs/
 *.log
+src/main/resources/application-database.yml

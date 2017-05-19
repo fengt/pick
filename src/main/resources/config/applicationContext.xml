@@ -71,7 +71,7 @@
              p:configLocation="classpath:config/mybatis/mybatis-config.xml"
              p:mapperLocations="classpath*:config/mybatis/mappers/*.xml" />
        <!-- baseIbatisDao -->
-       <bean id="myBatisGeneralRepository" class="com.xiaojiuwo.repositories.MyBatisGeneralRepository">
+       <bean id="myBatisGeneralRepository" class="com.itiaoling.repositories.MyBatisGeneralRepository">
               <property name="sqlSessionFactory">
                      <ref bean="sqlSessionFactory" />
               </property>

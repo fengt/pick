@@ -2,18 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xiaojiuwo.models.mapper.UsersMapper">
 
+    <insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+    	INSERT INTO users(name, email, encrypted_password, created_at, updated_at)
+			VALUES(#{name}, #{email}, #{password}, now(), now())
+    </insert>
+    
+    <update id="updateUser" parameterType="User">
+    	update users set name = #{name}, email = #{email}, encrypted_password = #{password}
+    	where id = #{id}
+    </update>
+    
+    <delete id="deleteUserById" parameterType="Long">
+    	delete from users where id = #{id}
+    </delete>
+    
+    <delete id="deleteAllUsers">
+    	delete from users
+    </delete>
 
 
-    <select id="findUsersByName" resultType="User" parameterType="User">
-      select
-        id as id,
-        name as name
+	<select id="findAllUsers" resultType="User">
+		select *, encrypted_password as password from users
+	</select>
 
-      from user u
 
-      where u.name = #{name}
+	<select id="findById" resultType="User" parameterType="Long">
+		select *, encrypted_password as password from users u where u.id = #{id} 
+	</select>
 
+    <select id="isUserExists" resultType="Integer" parameterType="User">
+      select count(1) from users u where u.name = #{name}
     </select>
-
 
 </mapper>

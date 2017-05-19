@@ -1,19 +1,15 @@
 package com.itiaoling.models;
 
 
-/**
- * Created by liuhaibao on 15/12/31.
- */
-
 public class User {
-
 
     private Long id;
 
-
     private String name;
 
-    private String state;
+    private String email;
+    
+    private String password;
 
     public Long getId() {
         return id;
@@ -31,11 +27,20 @@ public class User {
         this.name = name;
     }
 
-    public String getState() {
-        return state;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }

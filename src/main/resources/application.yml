@@ -1,13 +1,8 @@
 spring:
-  profiles.active: develop
+  profiles:
+    active: develop
+    include: 'database'
   
-  datasource:
-    url: jdbc:h2:~/base;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-    database-platform: org.hibernate.dialect.H2Dialect
-
   jpa:
     generate_ddl: true
     hibernate:
