@@ -1,10 +1,10 @@
-package com.itiaoling.services;
+package com.itiaoling.service;
 
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itiaoling.repositories.MyBatisGeneralRepository;
+import com.itiaoling.repository.MyBatisGeneralRepository;
 
 import javax.annotation.Resource;
 

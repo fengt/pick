@@ -1,0 +1,19 @@
+spring:
+  profiles: develop
+  datasource: 
+    url: jdbc:mysql://localhost:3306/pick
+    username: root
+    password: ****
+ 
+---
+spring:
+  profiles: test
+
+---
+spring:
+  profiles: demo
+
+---
+spring:
+  profiles: production
+  

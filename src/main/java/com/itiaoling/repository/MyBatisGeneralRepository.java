@@ -1,4 +1,4 @@
-package com.itiaoling.repositories;
+package com.itiaoling.repository;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 

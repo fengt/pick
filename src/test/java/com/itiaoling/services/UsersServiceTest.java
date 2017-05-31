@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.itiaoling.Application;
-import com.itiaoling.services.UsersService;
+import com.itiaoling.service.UsersService;
 
 /**
  * Created by liuhaibao on 15/11/2.
@@ -22,7 +22,8 @@ import com.itiaoling.services.UsersService;
 @Transactional
 public class UsersServiceTest {
 
-    @Autowired
+    @SuppressWarnings("unused")
+	@Autowired
     private UsersService usersService;
 
 

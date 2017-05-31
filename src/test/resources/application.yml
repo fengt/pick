@@ -1,18 +1,15 @@
 spring:
-
-  datasource:
-    url: jdbc:h2:~/base;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-    database-platform: org.hibernate.dialect.H2Dialect
-
+  profiles:
+    active: develop
+    include: database
+  
   thymeleaf:
     cache: false
 
   pidfile: shared/tmp/pids/application.pid
 server:
   port: 10001
+security.oauth2.resource.filter-order: 3
 
 logging:
     level:
@@ -20,3 +17,18 @@ logging:
         com.xiaojiuwo.models.mapper: 'DEBUG'
 
 
+---
+spring:
+  profiles: develop
+
+---
+spring:
+  profiles: test
+
+---
+spring:
+  profiles: demo
+
+---
+spring:
+  profiles: production

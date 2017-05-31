@@ -16,3 +16,4 @@ classes/
 logs/
 *.log
 src/main/resources/application-database.yml
+src/test/resources/application-database.yml

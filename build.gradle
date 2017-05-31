@@ -11,7 +11,7 @@ ext{
     mysqlVersion = '6.0.6'
     commonsVersion = '3.4'
     guavaVersion = '19.0'
-    h2Version = '1.4.192'
+    springSecurityOauth2Version = '2.0.10.RELEASE'
 
     projectVersion = '0.1.1'
 }
@@ -75,7 +75,6 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-jetty')
@@ -89,6 +88,8 @@ dependencies {
 
     compile("com.github.pagehelper:pagehelper:${pagehelperVersion}")
     compile("com.github.jsqlparser:jsqlparser:${jsqlparserVersion}")
+    
+    compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
 
 
     compile fileTree(dir:'lib',include:'*.jar')
@@ -99,8 +100,6 @@ dependencies {
     compile("mysql:mysql-connector-java:${mysqlVersion}")
     compile("org.apache.commons:commons-lang3:${commonsVersion}")
 	compile("com.google.guava:guava:${guavaVersion}")
-
-    compile("com.h2database:h2:${h2Version}")
 
 
     testCompile("junit:junit")

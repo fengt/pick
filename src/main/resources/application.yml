@@ -1,24 +1,15 @@
 spring:
   profiles:
     active: develop
-    include: 'database'
+    include: database
   
-  jpa:
-    generate_ddl: true
-    hibernate:
-      dialect: org.hibernate.dialect.H2Dialect
-      ddl-auto: create
-      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
-      database: H2
-      show_sql: true
-      format_sql: true
   thymeleaf:
     cache: false
 
   pidfile: shared/tmp/pids/application.pid
 server:
   port: 10001
-
+security.oauth2.resource.filter-order: 3
 
 logging:
     level:

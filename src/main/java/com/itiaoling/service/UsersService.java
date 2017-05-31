@@ -1,18 +1,18 @@
-package com.itiaoling.services;
+package com.itiaoling.service;
+
+import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.itiaoling.models.User;
-
-import javax.transaction.Transactional;
-import java.util.List;
+import com.itiaoling.model.User;
 
 
 @Service
 @Transactional
 public class UsersService extends BaseService<User>{
 
-	private static final String NAMESPACE = "com.xiaojiuwo.models.mapper.UsersMapper.";
+	private static final String NAMESPACE = "com.xiaojiuwo.model.mapper.UsersMapper.";
 
 	public List<User> findAllUsers(){
 		return myBatisGeneralRepository.getSqlSession().selectList(NAMESPACE + "findAllUsers");

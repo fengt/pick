@@ -1,4 +1,4 @@
-package com.itiaoling.controllers;
+package com.itiaoling.controller;
 
 
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itiaoling.models.User;
-import com.itiaoling.services.UsersService;
+import com.itiaoling.model.User;
+import com.itiaoling.service.UsersService;
 
 /**
  * Created by liuhaibao on 15/10/31.
@@ -27,7 +27,8 @@ public class PostsController {
         User user = new User();
         user.setName("abc");
 
-        List<User> users = usersService.findByName("abc");
+        @SuppressWarnings("unused")
+		List<User> users = usersService.findByName("abc");
         return "posts/index";
 
     }

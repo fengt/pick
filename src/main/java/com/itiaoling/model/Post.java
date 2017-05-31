@@ -1,4 +1,4 @@
-package com.itiaoling.models;
+package com.itiaoling.model;
 
 
 public class Post {
