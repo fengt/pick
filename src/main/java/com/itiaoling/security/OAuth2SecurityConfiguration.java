@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -20,15 +23,17 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @EnableWebSecurity
 public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	private static PasswordEncoder encoder;
+	
 	@Autowired
 	private ClientDetailsService clientDetailsService;
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
 	@Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-        .withUser("feng").password("feng123").roles("ADMIN").and()
-        .withUser("li").password("li1234").roles("USER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -69,5 +74,13 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		TokenApprovalStore store = new TokenApprovalStore();
 		store.setTokenStore(tokenStore);
 		return store;
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		if (encoder == null) {
+			encoder = new BCryptPasswordEncoder();
+		}
+		return encoder;
 	}
 }

@@ -32,7 +32,7 @@ import com.itiaoling.Application;
 import com.itiaoling.controller.HomeController;
 import com.itiaoling.controller.UserController;
 import com.itiaoling.model.User;
-import com.itiaoling.service.UsersService;
+import com.itiaoling.service.UserService;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,7 +42,7 @@ public class UsersRestTest {
 	private MockMvc mvc;
 	
 	@Mock
-	private UsersService usersService;
+	private UserService userService;
 	
 	@InjectMocks
     private UserController userController;
@@ -75,7 +75,7 @@ public class UsersRestTest {
 				new User(1L, "John", "John@126.com", "12345678"),
 				new User(2L, "Tom", "Tom@126.com", "1233456"));
 		
-		when(usersService.findAllUsers()).thenReturn(users);
+		when(userService.findAllUsers()).thenReturn(users);
 		
 		mvc.perform(get("/users"))
 			.andExpect(status().isOk())
@@ -85,8 +85,8 @@ public class UsersRestTest {
 			.andExpect(jsonPath("$[0].name", is("John")))
 			.andExpect(jsonPath("$[1].email", is("Tom@126.com")));
 		
-		verify(usersService, times(1)).findAllUsers();
-		verifyNoMoreInteractions(usersService);
+		verify(userService, times(1)).findAllUsers();
+		verifyNoMoreInteractions(userService);
 	}
 	
 	

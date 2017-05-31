@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itiaoling.exception.ErrorEntity;
 import com.itiaoling.exception.ErrorResponseEntity;
 import com.itiaoling.model.User;
-import com.itiaoling.service.UsersService;
+import com.itiaoling.service.UserService;
 
 
 @RestController
@@ -35,7 +35,7 @@ public class UserController {
 	public static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-    UsersService usersService;
+    UserService userService;
 	
 	
 	
@@ -45,7 +45,7 @@ public class UserController {
 	@PreAuthorize("#oauth2.hasScope('read')")
 	@GetMapping(value = {"/", ""})
 	public ResponseEntity<List<User>> listAllUsers(){
-		List<User> users = usersService.findAllUsers();
+		List<User> users = userService.findAllUsers();
 		if(users.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -61,7 +61,7 @@ public class UserController {
 	public ResponseEntity<?> getUser(@PathVariable("id") long id){
 		LOGGER.info("Fetching User with id {}", id);
 		
-		User user = usersService.findById(id);
+		User user = userService.findById(id);
 		if(user == null){
 			
 			LOGGER.error("User with id {} not found.", id);
@@ -95,7 +95,7 @@ public class UserController {
 			return ResponseEntity.unprocessableEntity().body(errorResponseEntity);
 		}
 		
-		if(usersService.isUserExists(user)){
+		if(userService.isUserExists(user)){
 			LOGGER.error("Unable to create. A user with name {} already exists", user.getName());
 			//TODO just omit. Actually it also need to verify email unique
 			
@@ -106,7 +106,7 @@ public class UserController {
 		
 		BCryptPasswordEncoder encodePW = new BCryptPasswordEncoder();
 		user.setPassword(encodePW.encode(user.getPassword()));
-		usersService.saveUser(user);
+		userService.saveUser(user);
 		
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
@@ -133,7 +133,7 @@ public class UserController {
 		}
 		
 		
-		User currentUser = usersService.findById(id);
+		User currentUser = userService.findById(id);
 		
 		if(currentUser == null){
 			LOGGER.error("Unable to update. User with id {} not found.", id);
@@ -148,7 +148,7 @@ public class UserController {
 		BCryptPasswordEncoder encodePW = new BCryptPasswordEncoder();
 		currentUser.setPassword(encodePW.encode(user.getPassword()));
 		
-		usersService.updateUser(currentUser);
+		userService.updateUser(currentUser);
 		
 		return new ResponseEntity<User>(currentUser, HttpStatus.OK);
 	}
@@ -162,7 +162,7 @@ public class UserController {
 	public ResponseEntity<?> deleteUser(@PathVariable("id") long id){
 		LOGGER.info("Fetching & Deleting User with id {}", id);
 		
-		User user = usersService.findById(id);
+		User user = userService.findById(id);
 		if(user == null){
 			LOGGER.error("Unable to delete. User with id {} not found.", id);
 			
@@ -170,7 +170,7 @@ public class UserController {
 					new ErrorEntity("user", "id", "Unable to delete. User with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		usersService.deleteUserById(id);
+		userService.deleteUserById(id);
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 	
@@ -183,7 +183,7 @@ public class UserController {
 	public ResponseEntity<User> deleteAllUsers(){
 		LOGGER.info("Deleting All Users");
 		
-		usersService.deleteAllUsers();
+		userService.deleteAllUsers();
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 	

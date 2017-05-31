@@ -10,9 +10,9 @@ import com.itiaoling.model.User;
 
 @Service
 @Transactional
-public class UsersService extends BaseService<User>{
+public class UserService extends BaseService<User>{
 
-	private static final String NAMESPACE = "com.xiaojiuwo.model.mapper.UsersMapper.";
+	private static final String NAMESPACE = "com.xiaojiuwo.models.mapper.UsersMapper.";
 
 	public List<User> findAllUsers(){
 		return myBatisGeneralRepository.getSqlSession().selectList(NAMESPACE + "findAllUsers");
@@ -45,9 +45,7 @@ public class UsersService extends BaseService<User>{
 	}
 	
 
-    public List<User> findByName(String name){
-        User user = new User();
-        user.setName(name);
-        return myBatisGeneralRepository.getSqlSession().selectList(NAMESPACE + "findUsersByName", user);
+    public User findByName(String name){
+        return myBatisGeneralRepository.getSqlSession().selectOne(NAMESPACE + "findUsersByName", name);
     }
 }

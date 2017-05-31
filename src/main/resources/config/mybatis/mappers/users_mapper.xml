@@ -34,4 +34,8 @@
       select count(1) from users u where u.name = #{name}
     </select>
 
+	<select id="findUsersByName" resultType="User" parameterType="String">
+		select *, encrypted_password as password from users u where u.name = #{name}
+	</select>
+
 </mapper>

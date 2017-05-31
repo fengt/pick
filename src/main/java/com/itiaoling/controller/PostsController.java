@@ -1,15 +1,13 @@
 package com.itiaoling.controller;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itiaoling.model.User;
-import com.itiaoling.service.UsersService;
+import com.itiaoling.service.UserService;
 
 /**
  * Created by liuhaibao on 15/10/31.
@@ -19,7 +17,7 @@ import com.itiaoling.service.UsersService;
 public class PostsController {
 
     @Autowired
-    UsersService usersService;
+    UserService usersService;
 
     @RequestMapping(value={"","/"}, method=RequestMethod.GET)
     public String index(){
@@ -28,7 +26,7 @@ public class PostsController {
         user.setName("abc");
 
         @SuppressWarnings("unused")
-		List<User> users = usersService.findByName("abc");
+		User users = usersService.findByName("abc");
         return "posts/index";
 
     }
