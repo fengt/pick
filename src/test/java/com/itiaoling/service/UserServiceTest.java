@@ -1,4 +1,4 @@
-package com.itiaoling.services;
+package com.itiaoling.service;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
@@ -24,7 +24,7 @@ import com.itiaoling.service.UserService;
 @SpringBootTest(classes = Application.class)
 @ImportResource("classpath:config/applicationContext.xml")
 @Transactional
-public class UsersServiceTest {
+public class UserServiceTest {
 
 	@Autowired
     private UserService userService;

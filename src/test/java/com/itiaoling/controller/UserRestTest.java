@@ -1,4 +1,4 @@
-package com.itiaoling.controllers;
+package com.itiaoling.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -37,7 +37,7 @@ import com.itiaoling.service.UserService;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class UsersRestTest {
+public class UserRestTest {
 	
 	private MockMvc mvc;
 	

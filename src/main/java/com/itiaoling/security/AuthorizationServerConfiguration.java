@@ -35,8 +35,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
             .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
             .scopes("read", "write")
             .secret("secret")
-            .accessTokenValiditySeconds(120).//Access token is only valid for 2 minutes.
-            refreshTokenValiditySeconds(600);//Refresh token is only valid for 10 minutes.
+            .accessTokenValiditySeconds(3600)//Access token is only valid for 1 hour.
+            .refreshTokenValiditySeconds(7200);//Refresh token is only valid for 2 hour.
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		super.configure(security);
+		security.allowFormAuthenticationForClients();
 	}
 
 }
