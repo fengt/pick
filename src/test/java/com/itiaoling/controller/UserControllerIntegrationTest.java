@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.itiaoling.Application;
@@ -51,9 +53,7 @@ public class UserControllerIntegrationTest {
 		assertNotNull(token);
 	}
 	
-	
-	
-	
+
 	
 	// =========================================== Get All Users ==========================================
 	
@@ -63,6 +63,125 @@ public class UserControllerIntegrationTest {
 		assertThat(response.getStatusCode(), is(HttpStatus.OK));
 		validateCORSHttpHeaders(response.getHeaders());
 	}
+	
+	
+	
+	
+	// =========================================== Get User By ID ==========================================
+	
+	@Test
+	public void test_get_by_id_success(){
+		ResponseEntity<User> response = template.getForEntity(
+				REST_SERVICE_URI + "/20" + ACCESS_TOKEN + token, User.class);
+		User user = response.getBody();
+		assertThat(user.getEmail(), is("fengt@itiaoling.com"));
+		assertThat(response.getStatusCode(), is(HttpStatus.OK));
+		validateCORSHttpHeaders(response.getHeaders());
+	}
+	
+	
+	@Test
+	public void test_get_by_id_failure_not_found(){
+		try {
+			@SuppressWarnings("unused")
+			ResponseEntity<User> response = template.getForEntity(REST_SERVICE_URI + "/-1" + ACCESS_TOKEN + token, User.class);
+			fail("should return 404 not found");
+		} catch (HttpClientErrorException e) {
+			assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
+			validateCORSHttpHeaders(e.getResponseHeaders());
+		}
+	}
+	
+	
+	
+	
+	// =========================================== Create New User ==========================================
+	
+	@Test
+	public void test_create_new_user_success(){
+		User user = new User(null, "create_user", "create_user@example.com", "12345678");
+		ResponseEntity<User> response = template.postForEntity(REST_SERVICE_URI + ACCESS_TOKEN + token, user, User.class);
+		User newUser = response.getBody();
+		assertThat(newUser.getName(), is("create_user"));
+		assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
+		validateCORSHttpHeaders(response.getHeaders());
+	}
+	
+	
+	@Test
+	public void test_create_new_user_fail_exists(){
+		User user = new User(null, "fengt", "fengt@itiaoling.com", "12345678");
+		try {
+			@SuppressWarnings("unused")
+			ResponseEntity<User> response = template.postForEntity(REST_SERVICE_URI + ACCESS_TOKEN + token, user, User.class);
+			fail("should return 409 conflict");
+		} catch (HttpClientErrorException e) {
+			assertThat(e.getStatusCode(), is(HttpStatus.CONFLICT));
+			validateCORSHttpHeaders(e.getResponseHeaders());
+		}
+	}
+	
+	
+	
+	
+	// =========================================== Update Existing User ==========================================
+	
+	@Test
+	public void test_update_user_success(){
+		User user = new User(null, "fengt", "fengt2@itiaoling.com", "12345678");
+		template.put(REST_SERVICE_URI + "/20" + ACCESS_TOKEN + token, user);
+	}
+	
+	
+	@Test
+    public void test_update_user_fail(){
+		User user = new User(null, "fengt", "fengt2@itiaoling.com", "12345678");
+        try {
+            template.put(REST_SERVICE_URI + "/-1" + ACCESS_TOKEN + token, user);
+            fail("should return 404 not found");
+        } catch (HttpClientErrorException e){
+            assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
+            validateCORSHttpHeaders(e.getResponseHeaders());
+        }
+    }
+	
+	
+	
+	
+	// =========================================== Delete User ==========================================
+	
+	@Test
+	public void test_delete_user_success(){
+        template.delete(REST_SERVICE_URI + "/" + getLastUser().getId() + ACCESS_TOKEN + token);
+    }
+	
+	
+	@Test
+    public void test_delete_user_fail(){
+        try {
+            template.delete(REST_SERVICE_URI + "/-1" + ACCESS_TOKEN + token);
+            fail("should return 404 not found");
+        } catch (HttpClientErrorException e){
+            assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
+            validateCORSHttpHeaders(e.getResponseHeaders());
+        }
+    }
+	
+	
+	private User getLastUser(){
+        ResponseEntity<User[]> response = template.getForEntity(REST_SERVICE_URI + ACCESS_TOKEN + token, User[].class);
+        User[] users = response.getBody();
+        return users[users.length - 1];
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -84,7 +203,7 @@ public class UserControllerIntegrationTest {
 	
 	
 	
-	
+	// =========================================== OAuth2 Headers ===========================================
 	
 	private HttpHeaders getHeaders() {
 		HttpHeaders headers = new HttpHeaders();
@@ -115,4 +234,19 @@ public class UserControllerIntegrationTest {
 			return null;
 		}
 	}
+	
+	
+	@SuppressWarnings("unused")
+	private User createTestUser(){
+		User user = new User(null, "test_user", "test_user@example.com", "12345678");
+		ResponseEntity<User> response = template.postForEntity(REST_SERVICE_URI + ACCESS_TOKEN + token, user, User.class);
+		User testUser = response.getBody();
+		assertThat(testUser.getName(), is("test_user"));
+		assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
+		validateCORSHttpHeaders(response.getHeaders());
+		return testUser;
+	}
+	
+	
+	
 }
